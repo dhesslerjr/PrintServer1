@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PrintServer1": {
+      "commandName": "Project",
+      "commandLineArgs": "port=10060 printer=DavidPrn2"
+    }
+  }
+}
