@@ -38,7 +38,7 @@ public class HttpServer
     {
         if (_listener.IsListening)
         {
-            var context = _listener.EndGetContext(result);
+              var context = _listener.EndGetContext(result);
             var request = context.Request;
             var printerName = "DavidPrn1";
 
@@ -70,6 +70,9 @@ public class HttpServer
                 body.Close();
 
 
+                string statusInfo="";
+                string errMsg="";
+                string labelType = "*detect*";
                 if (s.Length > 0)
                 {
                     //test send to printer
@@ -79,7 +82,9 @@ public class HttpServer
                         {
                             Console.WriteLine("printer_found=" + printer);
                             Console.WriteLine("printlabel(s)");
-
+                            NbtPrintUtil.PrintLabel(PrinterName, s, ref statusInfo, ref errMsg, labelType);
+                            Console.WriteLine(statusInfo);
+                            Console.WriteLine(errMsg);
                         }
                     }
                 }

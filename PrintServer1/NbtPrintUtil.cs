@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
@@ -16,7 +17,22 @@ namespace NbtPrintLib
         {
             bool Ret = true;
             errMsg = string.Empty;
-            bool isZPL = LabelType.ToLower().Equals("zpl label");
+            bool isZPL = false;
+            if (LabelType.ToLower().Equals("zpl label")) isZPL = true;
+            else if (LabelType.ToLower().Equals("epl label")) isZPL = false;
+            else //detect
+            {
+                if (LabelData.Length > 0)
+                {
+                    if (LabelData.Substring(0, 1) == "^") { 
+                        isZPL = true;
+                        statusInfo += " detected ZPL;";
+                    }
+                    else {
+                        statusInfo += " detected EPL;";
+                    }
+                }
+            }
 
             if ( LabelData != string.Empty )
             {
@@ -90,13 +106,13 @@ namespace NbtPrintLib
                             RawPrinterHelperAnsi.SendBytesToPrinter(aPrinterName, unmanagedPointer, entireLabel.Length);
                         if ( success )
                         {
-                            statusInfo = "Printed " + statusInfo;
+                            statusInfo += " Printed;";
                         }
                         else
                         {
                             Ret = false;
                             errMsg = "Label printing error on client.";
-                            statusInfo = "Error printing " + statusInfo;
+                            statusInfo += " Error printing;" ;
                         }
                     }
                     finally
@@ -112,13 +128,13 @@ namespace NbtPrintLib
                         RawPrinterHelperAnsi.SendStringToPrinter(aPrinterName, LabelData);
                     if ( success )
                     {
-                        statusInfo = "Printed " + statusInfo;
+                        statusInfo += " Printed;";
                     }
                     else
                     {
                         Ret = false;
                         errMsg = "Label printing error on client.";
-                        statusInfo = "Error printing " + statusInfo;
+                        statusInfo += " Error printing;";
                     }
 
                 }
