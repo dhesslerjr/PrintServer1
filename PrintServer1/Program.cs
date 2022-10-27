@@ -8,21 +8,6 @@ using System.Text;
 using NbtPrintLib;
 using System.Web;
 
-/*
-public static class GdiWrapper
-{
-
-    public static IntPtr printerDC;
-    public static Int32 PASSTHROUGH = 19; // https://winappdbg.sourceforge.net/doc/latest/reference/winappdbg.win32.gdi32-module.html
-
-    [DllImport("gdi32.dll")]
-    public static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, IntPtr lpInitData);
-    [DllImport("gdi32.dll")]
-    public static extern IntPtr DeleteDC(IntPtr hDC);
-    [DllImport("gdi32.dll")]
-    public static extern int ExtEscape(IntPtr hdc, int nEscape, int cbInput,string lpszInData, int cbOutput, IntPtr lpszOutData);
-}
-*/
 
 public class HttpServer
 {
@@ -94,29 +79,6 @@ public class HttpServer
                         {
                             Console.WriteLine("printer_found=" + printer);
                             Console.WriteLine("printlabel(s)");
-                            /*
-                            //using gdi does not work
-                            GdiWrapper.printerDC = GdiWrapper.CreateDC("WINSPOOL", printer, "",IntPtr.Zero);
-                            if (GdiWrapper.printerDC != IntPtr.Zero)
-                            {
-                                Console.WriteLine("CreateDC()=success");
-                            }
-                            else
-                            {
-                                Console.WriteLine("CreateDC()=failed");
-                            }
-
-                            string abuff = "line1\nline2\nline3\n";
-
-                            try {
-                                int res = GdiWrapper.ExtEscape(GdiWrapper.printerDC, GdiWrapper.PASSTHROUGH, abuff.Length, abuff, 0, IntPtr.Zero);
-                                Console.WriteLine("ExtEscape() returned=" + res.ToString());
-
-                            }
-                            finally {
-                                GdiWrapper.DeleteDC(GdiWrapper.printerDC);
-                            }
-                            */
 
                         }
                     }
